@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2014-10-13 09:40:36
+<?php /* Smarty version Smarty-3.1.18, created on 2014-10-14 09:04:59
          compiled from "D:\site\articlePage\templates\add_article.html" */ ?>
 <?php /*%%SmartyHeaderCode:18836543b41386c9095-03099743%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ec0007bb371d39eafbc0968e9bc37acec39c2b87' => 
     array (
       0 => 'D:\\site\\articlePage\\templates\\add_article.html',
-      1 => 1413193235,
+      1 => 1413277380,
       2 => 'file',
     ),
   ),
@@ -30,7 +30,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <meta charset="utf-8">
 <title>PHP文章分页类</title>
 <link href="<?php echo $_smarty_tpl->tpl_vars['Template_Dir']->value;?>
-/css/style.css"  rel="stylesheet" type="text/css">
+/css/style_control.css"  rel="stylesheet" type="text/css">
 <script src="<?php echo $_smarty_tpl->tpl_vars['Template_Dir']->value;?>
 /js/jquery-1.8.3.min.js"></script>
 

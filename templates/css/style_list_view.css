@@ -1,0 +1,17 @@
+
+/* 前台界面 */
+#container{ width:800px; margin:0 auto;}
+#title{ 
+
+	text-align:center; 
+	font-size:20px;
+	line-height:20px;
+}
+#content{ 
+
+	text-align:left; 
+	margin-top:20px; 
+	padding:20px; 
+	background:#eee;
+	min-height:500px;
+} 

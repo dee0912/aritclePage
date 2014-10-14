@@ -1,0 +1,61 @@
+
+a{ font-size:14px; font-family:Tahoma; color:#444; text-decoration:none; cursor:pointer;}
+ul{ list-style-type:none;}
+
+/* ***************************列表样式******************** */
+#list{
+
+	width:1000px;
+	margin-bottom:20px;
+	border:1px solid #95071b;
+}
+
+#list ul{
+
+	margin:5px 20px;
+	padding:0px;
+}
+
+#list li{
+
+	line-height:24px;
+	border-bottom:1px solid #95071b;
+}
+
+#list li a:hover{ color:red;}
+
+/* ****************************跳转样式******************** */
+#skip{
+
+	width:36px;
+	text-align:center;
+}
+
+/* ****************************ajax************************* */
+.loading{
+
+	position:absolute;
+	top:20%;
+	left:35%;
+}
+
+/* **************************页码****************************** */
+#page a.pagenum{
+
+	margin-left:3px;
+	margin-right:3px;
+	padding:1px 7px;
+	border:1px solid #ccc;
+}
+
+#page a.pagenum:hover{
+
+	background-color:#95071b;
+	color:#fff;
+}
+
+.selected{
+
+	background-color:#95071b;
+	color:#fff;
+}
