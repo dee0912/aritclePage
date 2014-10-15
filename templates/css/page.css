@@ -1,0 +1,20 @@
+/* **************************页码****************************** */
+#page a.pagenum{
+
+	margin-left:3px;
+	margin-right:3px;
+	padding:1px 7px;
+	border:1px solid #ccc;
+}
+
+#page a.pagenum:hover{
+
+	background-color:#95071b;
+	color:#fff;
+}
+
+.selected{
+
+	background-color:#95071b;
+	color:#fff;
+}

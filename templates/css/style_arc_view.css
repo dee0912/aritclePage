@@ -15,3 +15,11 @@
 	background:#eee;
 	min-height:500px;
 } 
+
+/* ****************************ajax-page************************* */
+.loading{
+
+	position:absolute;
+	top:20%;
+	left:35%;
+}

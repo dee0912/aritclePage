@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.18, created on 2014-10-14 06:30:58
+<?php /* Smarty version Smarty-3.1.18, created on 2014-10-15 05:27:08
          compiled from "D:\site\articlePage\templates\list.html" */ ?>
 <?php /*%%SmartyHeaderCode:7335543c98de658351-09336153%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ac8b5c79b8157d5b07482c56b95a6b5b0c6bd744' => 
     array (
       0 => 'D:\\site\\articlePage\\templates\\list.html',
-      1 => 1413268239,
+      1 => 1413350417,
       2 => 'file',
     ),
   ),
@@ -39,6 +39,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <title>列表页</title>
 <link href="<?php echo $_smarty_tpl->tpl_vars['Template_Dir']->value;?>
 /css/list.css"  rel="stylesheet" type="text/css">
+<link href="<?php echo $_smarty_tpl->tpl_vars['Template_Dir']->value;?>
+/css/page.css"  rel="stylesheet" type="text/css">
 <script id="jq" src="<?php echo $_smarty_tpl->tpl_vars['Template_Dir']->value;?>
 /js/jquery-1.8.3.min.js"></script>
 </head>
