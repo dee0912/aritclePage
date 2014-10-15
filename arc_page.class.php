@@ -244,7 +244,7 @@ class MyArcPage{
 				$this->pageShow .= "<a id=\"flo_page\" class=\"pagenum\" href=\"".$this->url."p=".($this->pageNow+1)."\">".$this->nextFonts."</a>";
 			}else if($this->pageNow > $this->totalPage){
 			
-				die("超出页码范围3");
+				die("超出页码范围");
 			}else{ //当前页等于总页数
 			
 				if($this->page_act != 1){
