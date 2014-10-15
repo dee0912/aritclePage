@@ -21,7 +21,10 @@
 			<{/if}>
 
 		</div>
-		<div id="page"><{$page}></div>
+		
+		<{if $totalPage != 1}>
+			<div id="page"><{$page}></div>
+		<{/if}>
 		<input id="pageNow" type="hidden" value="<{$pageNow}>">
 		<!--分页方式-->
 		<input id="page_act" type="hidden" value="<{$page_act}>">
