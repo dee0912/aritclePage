@@ -5,15 +5,56 @@
 <title>文章页</title>
 <link href="<{$Template_Dir}>/css/style_arc_view.css"  rel="stylesheet" type="text/css">
 <link href="<{$Template_Dir}>/css/page.css"  rel="stylesheet" type="text/css">
+<script id="jq" src="<{$Template_Dir}>/js/jquery-1.8.3.min.js"></script>
 </head>
 <body>
 
 	<div id="container">
 	
 		<div id="title"><{$row.title}></div>
-		<div id="content"><{$content}></div>
+		<div id="content">
+			
+			<{if $totalPage == 1}>
+				<{$content}>
+			<{else}>
+				<{$content[$pageNow-1]}>
+			<{/if}>
+
+		</div>
 		<div id="page"><{$page}></div>
+		<input id="pageNow" type="hidden" value="<{$pageNow}>">
+		<!--分页方式-->
+		<input id="page_act" type="hidden" value="<{$page_act}>">
+		<!--总页数-->
+		<input id="totalPage" type="hidden" value="<{$totalPage}>">
 	</div>
 
 </body>
+<script>
+
+	$(function(){
+	
+		//遍历a
+		$(".pagenum").each(function(){
+		
+			if($(this).text() == $("#pageNow").val()){
+		
+				$(this).addClass("selected");
+			}
+		});
+		
+		
+		//如果分页方式是ajax，则加载外部ajax.js
+		if($("#page_act").val() == 1){
+		
+			//把smarty的变量传递给外部js
+			$Template_Dir = $("#Template_Dir").val();
+			$preFonts = $("#preFonts").val();
+
+			$insertAjax = $("<script src=\"<{$Template_Dir}>/js/ajax.js\"><\/script>");
+			$insertAjax.insertAfter($("#jq"));
+		}
+
+	});
+</script>
 </html>

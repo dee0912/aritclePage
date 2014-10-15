@@ -31,8 +31,8 @@ class MyArcPage{
 		$this->content = $content;
 		$this->pagebreak = $pagebreak;
 		$this->floPage = $floPage;
-
 		$this->prePage = $prePage;
+
 		$this->page_act = $page_act;
 
 		$this->p = $p;
@@ -47,7 +47,7 @@ class MyArcPage{
 			//不含有分页符
 			return $this->content;				
 		}else{
-		
+
 			//含有分页符
 			$contentArr = explode($this->pagebreak,$this->content);	
 			return $contentArr;
@@ -134,12 +134,16 @@ class MyArcPage{
 	
 	/****************************前偏移量处理***************************/
 	public function preOffset($preFonts){
-	
+
+		$this->getPageNow();
+		$this->getUrl();
+		$this->getPreFonts($preFonts);
+
 		//前偏移量的处理
 		if($this->pageNow!=1 && ($this->pageNow - $this->prePage -1 <= 1)){
-					
+	
 			//上一页
-			$this->pageShow .= "<a id=\"per_page\" class=\"pagenum\" href=\"".$this->url."p=".($this->pageNow-1)."\">".($preFonts == ""?$this->preFonts:$preFonts)."</a>";
+			$this->pageShow .= "<a id=\"pre_page\" class=\"pagenum\" href=\"".$this->url."p=".($this->pageNow-1)."\">".($preFonts == ""?$this->preFonts:$preFonts)."</a>";
 
 			
 			//页码
@@ -154,13 +158,9 @@ class MyArcPage{
 
 		}else if($this->pageNow - $this->prePage -1 > 1){ //pageNow至少大于2时才会出现"1..."
 			
-			//样式2.加上'首页'
-			if($this->pageStyle == 2 || $this->page_act == 1){
 				
-				//首页
-				$this->pageShow .= "<a id=\"first_page\" class=\"pagenum\" href=\"".$this->url."p=1\">".$this->firstFonts."</a>";
-			}
-			
+			//首页
+			$this->pageShow .= "<a id=\"first_page\" class=\"pagenum\" href=\"".$this->url."p=1\">".$this->firstFonts."</a>";			
 			
 			//上一页
 			$this->pageShow .= "<a id=\"pre_page\" class=\"pagenum\" href=\"".$this->url."p=".($this->pageNow-1)."\">".($preFonts == ""?$this->preFonts:$preFonts)."</a>";
@@ -179,8 +179,11 @@ class MyArcPage{
 	/**********************页码和后偏移量处理***************************/
 	public function floOffset($nextFonts){
 	
+		$this->getPageNow();
 		$this->getTotalPage();
-		
+		$this->getUrl();
+		$this->getNextFonts($nextFonts);
+
 		if($this->totalPage > $this->floPage){ //总页数大于后偏移量时
 
 			for($i=0;$i<=$this->floPage;$i++){
@@ -211,7 +214,7 @@ class MyArcPage{
 				die("超出页码范围");
 			}
 		}else{ //总页数小于后偏移量时
-			
+		
 			if($this->pageNow < $this->totalPage){  //当前页小于总页数时
 
 				for($i=0;$i<$this->totalPage;$i++){
@@ -252,15 +255,24 @@ class MyArcPage{
 		}
 	}
 
+	/********************其它页面信息***********************/
+	public function getOtherInfo(){
+	
+		$this->pageShow .= "<span id=\"pagenow_info\">&nbsp;&nbsp;当前第".$this->pageNow."页</span>";
+		$this->pageShow .= "/<span id=\"totalpage_info\">共".$this->totalPage."页</span>";
+
+		return $this->pageShow;
+	}
+
 	/* ********************获取上一页、下一页文字******************* */
 	public function getPreFonts($preFonts){
 	
-		return ($preFonts=="")?$this->preFonts:$preFonts;
+		return $this->preFonts = ($preFonts=="")?$this->preFonts:$preFonts;
 	}
 	
 	public function getNextFonts($nextFonts){
 	
-		return ($nextFonts=="")?$this->nextFonts:$nextFonts;
+		return $this->nextFonts = ($nextFonts=="")?$this->nextFonts:$nextFonts;
 	}
 
 
@@ -278,9 +290,9 @@ class MyArcPage{
 
 	/*********************************分页***************************************/
 	public function page(){
-	
+
 		//文章分页一般不多，所以只是用list_page.class.php中的style2作为分页样式
 		//返回页码
-		return $this->preOffset($preFonts,$this->perPage).$this->floOffset($nextFonts,$this->floPage);
+		return $this->preOffset($preFonts,$this->prePage).$this->floOffset($nextFonts,$this->floPage).$this->getOtherInfo();
 	} 
 }
