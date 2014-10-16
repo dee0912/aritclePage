@@ -26,7 +26,7 @@ $pagebreak = "&lt;!-- pagebreak --&gt;"; //<!-- pagebreak -->
 $page_act = 1; //设置分页方式 0:url 1:ajax
 
 $perPage = 4; //前分页偏移量
-$floPage = 4; //后分页偏移量
+$floPage = 8; //后分页偏移量
 $preFonts = ""; //"前一页"文字内容
 $nextFonts = ""; //"下一页"文字内容
 
@@ -39,7 +39,6 @@ if($page_act == 0){
 	//ajax分页时$p来自viwe_article.html
 	$p = isset($_POST['p'])?$_POST['p']:1;
 }
-file_put_contents("D:/mylog.log",$_POST['p']."页\r\n",FILE_APPEND);
 
 //实例化
 $mypage = new MyArcPage($content,$pagebreak,$page_act,$p,$perPage,$floPage);
@@ -79,6 +78,8 @@ $smarty->assign("content",$content);
 //ajax要用到的参数
 $smarty->assign("id",$id);
 $smarty->assign("pagebreak",$pagebreak);
+$smarty->assign("perPage",$perPage); //前分页偏移量
+$smarty->assign("floPage",$floPage); //后分页偏移量
 
 $smarty->assign("page",$page);
 $smarty->assign("pageNow",$p); //传递当前页

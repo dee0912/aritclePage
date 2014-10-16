@@ -225,14 +225,14 @@ class MyArcPage{
 						//if($this->page_act != 1){
 
 							//页码后边界
-							$this->pageShow .= "<a id=\"flo_page\" class=\"pagenum\" href=\"".$this->url."p=".$page."\">".$page."</a>";
+							$this->pageShow .= "<a class=\"pagenum ajaxpage\" href=\"".$this->url."p=".$page."\">".$page."</a>";
 						//}
 
 					}else if($page == $this->totalPage){
 					
 						//if($this->page_act != 1){
 
-							$this->pageShow .= "<a id=\"flo_page\" class=\"pagenum\" href=\"".$this->url."p=".$page."\">".$page."</a>";
+							$this->pageShow .= "<a class=\"pagenum ajaxpage\" href=\"".$this->url."p=".$page."\">".$page."</a>";
 						//}
 					}else if($this->pageNow > $this->totalPage){
 			
