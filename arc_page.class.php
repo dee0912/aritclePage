@@ -62,7 +62,7 @@ class MyArcPage{
 			$this->pageNow = 1;
 		}else if($this->p>0){
 			
-			$this->pageNow = $this->p;	
+			$this->pageNow = $this->p;
 		}else{
 		
 			die("page number error");
@@ -150,15 +150,14 @@ class MyArcPage{
 			for($i=1;$i<=$this->pageNow-1;$i++){		
 
 				//ajax方式不显示
-				if($this->page_act != 1){
+				//if($this->page_act != 1){
 
 					$this->pageShow .= "<a class=\"pagenum\" href=\"".$this->url."p=".$i."\">".$i."</a>";	
-				}
+				//}
 			}
 
 		}else if($this->pageNow - $this->prePage -1 > 1){ //pageNow至少大于2时才会出现"1..."
-			
-				
+						
 			//首页
 			$this->pageShow .= "<a id=\"first_page\" class=\"pagenum\" href=\"".$this->url."p=1\">".$this->firstFonts."</a>";			
 			
@@ -168,10 +167,10 @@ class MyArcPage{
 			for($i=$this->prePage;$i>=1;$i--){		
 
 				//当前页和'...'之间的页码，ajax方式不显示
-				if($this->page_act != 1){
+				//if($this->page_act != 1){
 
-					$this->pageShow .= "<a class=\"pagenum\" href=\"".$this->url."p=".($this->pageNow-$i)."\">".($this->pageNow-$i)."</a>";	
-				}
+					$this->pageShow .= "<a class=\"pagenum ajaxpage\" href=\"".$this->url."p=".($this->pageNow-$i)."\">".($this->pageNow-$i)."</a>";	
+				//}
 			}
 		}
 	}
@@ -193,10 +192,10 @@ class MyArcPage{
 				if($page<=$this->totalPage){
 
 					//页码,ajax方式不显示
-					if($this->page_act != 1){
+					//if($this->page_act != 1){
 
-						$this->pageShow .= "<a class=\"pagenum\" href=\"".$this->url."p=".$page."\">".$page."</a>";
-					}
+						$this->pageShow .= "<a class=\"pagenum ajaxpage\" href=\"".$this->url."p=".$page."\">".$page."</a>";
+					//}
 				}
 			}
 
@@ -223,18 +222,18 @@ class MyArcPage{
 					
 					if($page < $this->totalPage){
 					
-						if($this->page_act != 1){
+						//if($this->page_act != 1){
 
 							//页码后边界
 							$this->pageShow .= "<a id=\"flo_page\" class=\"pagenum\" href=\"".$this->url."p=".$page."\">".$page."</a>";
-						}
+						//}
 
 					}else if($page == $this->totalPage){
 					
-						if($this->page_act != 1){
+						//if($this->page_act != 1){
 
 							$this->pageShow .= "<a id=\"flo_page\" class=\"pagenum\" href=\"".$this->url."p=".$page."\">".$page."</a>";
-						}
+						//}
 					}else if($this->pageNow > $this->totalPage){
 			
 						die("超出页码范围");
@@ -247,10 +246,10 @@ class MyArcPage{
 				die("超出页码范围");
 			}else{ //当前页等于总页数
 			
-				if($this->page_act != 1){
+				//if($this->page_act != 1){
 
 					$this->pageShow .= "<a id=\"flo_page\" class=\"pagenum\" href=\"".$this->url."p=".$this->totalPage."\">".$this->totalPage."</a>";
-				}
+				//}
 			}
 		}
 	}

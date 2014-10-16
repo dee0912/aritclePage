@@ -18,19 +18,28 @@ if($conne->getRowsNum($sql) == 1){
 	$row = $conne->getRowsRst($sql);
 }else{
 
-	die("select error");
+	die("select error!");
 }
 
 $content = $row['content'];
 $pagebreak = "&lt;!-- pagebreak --&gt;"; //<!-- pagebreak -->
-$page_act = 0; //设置分页方式 0:url 1:ajax
+$page_act = 1; //设置分页方式 0:url 1:ajax
 
 $perPage = 4; //前分页偏移量
 $floPage = 4; //后分页偏移量
 $preFonts = ""; //"前一页"文字内容
 $nextFonts = ""; //"下一页"文字内容
 
-$p = isset($_GET['p'])?$_GET['p']:1; //当前页码
+if($page_act == 0){
+
+	//url分页时的$p
+	$p = isset($_GET['p'])?$_GET['p']:1; //当前页码
+}else{
+
+	//ajax分页时$p来自viwe_article.html
+	$p = isset($_POST['p'])?$_POST['p']:1;
+}
+file_put_contents("D:/mylog.log",$_POST['p']."页\r\n",FILE_APPEND);
 
 //实例化
 $mypage = new MyArcPage($content,$pagebreak,$page_act,$p,$perPage,$floPage);
@@ -38,7 +47,7 @@ $mypage = new MyArcPage($content,$pagebreak,$page_act,$p,$perPage,$floPage);
 //获得content
 $content = $mypage->check();
 
-//htmlspecialchars_decode处理
+//htmlspecialchars_decode处理。如果文章带分页，那么获取到的$content就是一个一维数组，需要把数组中的每个元素即每页展现的内容进行decode
 if(is_array($content)){
 
 	for($i=1;$i<=count($content);$i++){
@@ -67,9 +76,14 @@ $smarty->assign("row",$row);
 
 $smarty->assign("content",$content);
 
+//ajax要用到的参数
+$smarty->assign("id",$id);
+$smarty->assign("pagebreak",$pagebreak);
+
 $smarty->assign("page",$page);
 $smarty->assign("pageNow",$p); //传递当前页
 $smarty->assign("totalPage",$totalPage); //传递总页数
 $smarty->assign("page_act",$page_act); //传递分页方式
+$smarty->assign("preFonts",$preFonts); //传递上一页文字信息
 
 $smarty->display("view_article.html");
