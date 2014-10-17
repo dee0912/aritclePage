@@ -42,6 +42,7 @@
 		<!--//把smarty的变量传递给外部js-->
 		<input id="Template_Dir" type="hidden" value="<{$Template_Dir}>">
 		<input id="preFonts" type="hidden" value="<{$preFonts}>">
+		<input id="nextFonts" type="hidden" value="<{$nextFonts}>">
 	</div>
 
 </body>
@@ -65,6 +66,7 @@
 			//把smarty的变量传递给外部js
 			$Template_Dir = $("#Template_Dir").val();
 			$preFonts = $("#preFonts").val();
+			$nextFonts = $("#nextFonts").val();
 
 			$insertAjax = $("<script src=\"<{$Template_Dir}>/js/ajax_arc.js\"><\/script>");
 			$insertAjax.insertAfter($("#jq"));

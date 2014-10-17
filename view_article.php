@@ -26,7 +26,7 @@ $pagebreak = "&lt;!-- pagebreak --&gt;"; //<!-- pagebreak -->
 $page_act = 1; //设置分页方式 0:url 1:ajax
 
 $perPage = 4; //前分页偏移量
-$floPage = 8; //后分页偏移量
+$floPage = 3; //后分页偏移量
 $preFonts = ""; //"前一页"文字内容
 $nextFonts = ""; //"下一页"文字内容
 
@@ -86,5 +86,6 @@ $smarty->assign("pageNow",$p); //传递当前页
 $smarty->assign("totalPage",$totalPage); //传递总页数
 $smarty->assign("page_act",$page_act); //传递分页方式
 $smarty->assign("preFonts",$preFonts); //传递上一页文字信息
+$smarty->assign("nextFonts",$nextFonts); //传递下一页文字信息
 
 $smarty->display("view_article.html");

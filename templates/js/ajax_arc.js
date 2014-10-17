@@ -31,19 +31,19 @@ $(function(){
 
 		}else{
 		
-			if($("#pre_page").is(":hidden") || $("#pre_page").length == 0){
+			//if($("#pre_page").is(":hidden")){
 				$("#pre_page").show();
-			}
-			if($("#first_page").is(":hidden") || $("#first_page").length == 0){
+			//}
+			//if($("#first_page").is(":hidden")){
 				
 				$("#first_page").show();
-			}
-			if($("#flo_page").is(":hidden") || $("#flo_page") == 0){
+			//}
+			//if($("#flo_page").is(":hidden")){
 				$("#flo_page").show();
-			}
-			if($("#last_page").is(":hidden") || $("#last_page").length == 0){
+			//}
+			//if($("#last_page").is(":hidden")){
 				$("#last_page").show();
-			}
+			//}
 		}
 	}
 
@@ -57,7 +57,7 @@ $(function(){
 			$firstPage.insertBefore($(".ajaxpage:first"));
 		}
 
-		//上一页
+		//上一页 
 		$pre_page = $("<a id=\"pre_page\" class=\"pagenum\">"+$preFonts+"</a>");
 		
 		if($("#pre_page").length == 0){
@@ -91,7 +91,7 @@ $(function(){
 
 		if($("#first_page").is(":visible")){
 		
-			$("#first_page").click(function(){
+			$("#first_page").live('click',function(){
 
 				//删除更新前的
 				ajaxpre();
@@ -124,8 +124,8 @@ $(function(){
 			
 				//删除更新前的
 				ajaxpre();
-
-				//每点击"下一次",隐藏域值-1
+	
+				//每点击"上一页",隐藏域值-1
 				if(parseInt(apagenow) != 1){
 				
 					apagenow = parseInt(apagenow) - parseInt(1);
@@ -159,7 +159,7 @@ $(function(){
 		//去掉a的href属性
 		$("#flo_page").removeAttr("href");
 		
-		$("#flo_page").click(function(){
+		$("#flo_page").live('click',function(){
 
 			ajaxpre();
 			
@@ -203,7 +203,7 @@ $(function(){
 		//去掉a的href属性
 		$("#last_page").removeAttr("href");
 		
-		$("#last_page").click(function(){
+		$("#last_page").live('click',function(){
 		
 			ajaxpre();
 			
@@ -236,12 +236,12 @@ $(function(){
 	}
 
 	//取消a标签跳转
-	$("#first_page").click(function(){
+	$("#first_page").live('click',function(){
 			
 		return false;
 	});
 
-	$("#pre_page").click(function(){
+	$("#pre_page").live('click',function(){
 			
 		return false;
 	});
@@ -249,14 +249,19 @@ $(function(){
 	//删除具体页码的href
 	$(".ajaxpage").removeAttr("href");
 
-	$(".ajaxpage").click(function(){
+	
+	//live()可使jQuery动态添加的元素也能绑定事件处理函数
+	$(".ajaxpage").live('click', function(){
 
 		ajaxpre();
-		
+
 		//每点击"下一次",隐藏域值变为当前a标签显示的页码
 		apagenow = $(this).text();
 
 		$("#pageNow").val(apagenow);
+
+		//后偏移分页
+		flopage($("#pageNow").val());
 
 		//修改页码信息
 		$("#pagenow_info").html("&nbsp;&nbsp;当前第"+$("#pageNow").val()+"页");
@@ -270,12 +275,15 @@ $(function(){
 				$(this).addClass("selected");
 			}
 		})
-//flopage();
+		
 		showPage();
 		firstPageAct();
 		prePageAct();
-		//点击第一页，隐藏"首页","上一页"
+
 		infoAct();
+
+		//给页码加样式
+		selpage();
 
 		ajaxpost();
 	});
@@ -295,28 +303,36 @@ $(function(){
 	}
 
 	//后偏移量
-//	function flopage(){
-//	
-//		if(parseInt($("#flopage").val()) < parseInt($("#totalPage").val())){
-//		
-//			//当后偏移量小于总页数时，默认的后边界为1+flopage
-//			$default_fpage = parseInt(1) + parseInt($("#flopage").val());
-//			
-//			//当页码发生变化时(点击页码)，新添加的边界页码为
-//			$ins_page_num = parseInt($default_fpage) + parseInt($("#pageNow").val()) -parseInt(1);
-//
-//			//当新边界小于总页数时,把原先的页码全部删除，插入含新加边界的页码
-//			if(parseInt($ins_page_num) <= parseInt($("#totalPage").val())){
-//
-//				for(var i=(parseInt($default_fpage)+parseInt(1));i<=(parseInt($ins_page_num));i++){
-//				
-//					$pageshow = $("<a class=\"pagenum ajaxpage\">"+i+"</a>");
-//		
-//					$pageshow.insertBefore($("#flo_page"));
-//				}
-//			}
-//		}
-//	}
+	function flopage($pagenow){
+	
+		if(parseInt($("#flopage").val()) < parseInt($("#totalPage").val())){
+					
+			//当页码发生变化时(点击页码)，新添加的边界页码为
+			$ins_page_num = parseInt($pagenow) + parseInt($("#flopage").val()) - parseInt(1);
+		
+			$pageshow = "";
+
+			//当新的页码边界也小于总页数时
+			if(parseInt($ins_page_num) < parseInt($("#totalPage").val())){
+				//新的页码显示为
+				for(var i=1;i<=$ins_page_num+parseInt(1);i++){
+				
+					$pageshow += "<a class=\"pagenum ajaxpage\">"+i+"</a>"; 
+				}
+
+				//如果后边界没有到达末页，则显示'下一页'、'末页'
+				$pageshow += "<a id=\"flo_page\" class=\"pagenum\">"+$nextFonts+"</a>";
+				$pageshow += "<a id=\"last_page\" class=\"pagenum\">末页</a>";
+				
+				//修改页码信息
+				$pageshow += "&nbsp;&nbsp;当前第"+$pagenow+"页";
+				$pageshow += "/共"+$("#totalPage").val()+"页";
+
+				//替换原来的页码显示
+				$("#page").html($pageshow);
+			}
+		}
+	}
 });
 
 
