@@ -150,6 +150,16 @@ $(function(){
 				//后偏移分页
 				flopage($("#pageNow").val());
 				
+				if($("#first_page").is(":hidden") || $("#first_page").length == 0){
+
+					//出现"首页"和"下一页"
+					showPage();
+					showFloPage();
+					firstPageAct();
+					lastPageAct();
+					prePageAct();
+				}
+				
 				//ajax请求数据
 				ajaxpost();
 				
