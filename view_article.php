@@ -26,7 +26,7 @@ $pagebreak = "&lt;!-- pagebreak --&gt;"; //<!-- pagebreak -->
 $page_act = 1; //设置分页方式 0:url 1:ajax
 
 $perPage = 4; //前分页偏移量
-$floPage = 3; //后分页偏移量
+$floPage = 4; //后分页偏移量
 $preFonts = ""; //"前一页"文字内容
 $nextFonts = ""; //"下一页"文字内容
 

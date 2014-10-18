@@ -31,19 +31,12 @@ $(function(){
 
 		}else{
 		
-			//if($("#pre_page").is(":hidden")){
 				$("#pre_page").show();
-			//}
-			//if($("#first_page").is(":hidden")){
-				
 				$("#first_page").show();
-			//}
-			//if($("#flo_page").is(":hidden")){
+			
 				$("#flo_page").show();
-			//}
-			//if($("#last_page").is(":hidden")){
 				$("#last_page").show();
-			//}
+			
 		}
 	}
 
@@ -103,6 +96,9 @@ $(function(){
 				//修改页码信息
 				$("#pagenow_info").html("&nbsp;&nbsp;当前第1页");
 
+				//后偏移分页
+				flopage($("#pageNow").val());
+				
 				//ajax请求数据
 				ajaxpost();
 				
@@ -133,6 +129,9 @@ $(function(){
 				
 				$("#pageNow").val(apagenow);
 				
+				//前、后偏移分页
+				flopage($("#pageNow").val());
+
 				//隐藏域的页码值大于1时
 				if(parseInt($("#pageNow").val()) > parseInt(1)){
 			
@@ -142,6 +141,14 @@ $(function(){
 
 				//ajax请求数据
 				ajaxpost();
+
+				if($("#first_page").is(":hidden") || $("#first_page").length == 0){
+
+					//出现"首页"和"下一页"
+					showPage();
+					firstPageAct();
+					prePageAct();
+				}
 
 				//第一页时隐藏"首页"和"上一页"
 				infoAct();
@@ -167,6 +174,9 @@ $(function(){
 			apagenow = parseInt(apagenow) + parseInt(1);
 
 			$("#pageNow").val(apagenow);
+
+			//后偏移分页
+			flopage($("#pageNow").val());
 
 			//隐藏域的页码值小于总页码时
 			if(parseInt($("#pageNow").val()) <= parseInt($("#totalPage").val())){
@@ -213,6 +223,9 @@ $(function(){
 
 			//修改页码信息
 			$("#pagenow_info").html("&nbsp;&nbsp;当前第"+$("#totalPage").val()+"页");
+			
+			//后偏移分页
+			flopage($("#pageNow").val());
 			
 			//ajax请求数据
 			ajaxpost();
@@ -276,9 +289,13 @@ $(function(){
 			}
 		})
 		
-		showPage();
-		firstPageAct();
-		prePageAct();
+		if($("#first_page").is(":hidden") || $("#first_page").length == 0){
+
+			//出现"首页"和"下一页"
+			showPage();
+			firstPageAct();
+			prePageAct();
+		}
 
 		infoAct();
 
@@ -310,12 +327,12 @@ $(function(){
 			//当页码发生变化时(点击页码)，新添加的边界页码为
 			$ins_page_num = parseInt($pagenow) + parseInt($("#flopage").val()) - parseInt(1);
 		
-			$pageshow = "";
+			prepage($pagenow);
 
 			//当新的页码边界也小于总页数时
 			if(parseInt($ins_page_num) < parseInt($("#totalPage").val())){
 				//新的页码显示为
-				for(var i=1;i<=$ins_page_num+parseInt(1);i++){
+				for(var i=$pagenow;i<=$ins_page_num+parseInt(1);i++){
 				
 					$pageshow += "<a class=\"pagenum ajaxpage\">"+i+"</a>"; 
 				}
@@ -330,6 +347,48 @@ $(function(){
 
 				//替换原来的页码显示
 				$("#page").html($pageshow);
+			}else{
+			
+				//当新的页码边界也大于总页数时
+				for(var i=$pagenow;i<=parseInt($("#totalPage").val());i++){
+				
+					$pageshow += "<a class=\"pagenum ajaxpage\">"+i+"</a>"; 
+				}
+
+				//如果后边界没有到达末页，则显示'下一页'、'末页'
+				$pageshow += "<a id=\"flo_page\" class=\"pagenum\">"+$nextFonts+"</a>";
+				$pageshow += "<a id=\"last_page\" class=\"pagenum\">末页</a>";
+				
+				//修改页码信息
+				$pageshow += "&nbsp;&nbsp;当前第"+$pagenow+"页";
+				$pageshow += "/共"+$("#totalPage").val()+"页";
+
+				//替换原来的页码显示
+				$("#page").html($pageshow);
+			}
+		}
+	}
+
+	//前偏移量
+	function prepage($pagenow){
+	
+		$pageshow = "";
+
+		//当前页 - 当前偏移量 <= 0 时
+		if(parseInt($pagenow) - parseInt($("#perpage").val()) <= 0){
+
+			//前边界 = 1
+			//pagenow不输出，在后偏移量时pagenow已经输出
+			for(var i=1;i<parseInt($pagenow);i++){
+			
+				$pageshow += "<a class=\"pagenum ajaxpage\">"+i+"</a>"; 
+			}
+		}else{
+	
+			//前边界 = pagenow - prepage
+			for(var i=parseInt($pagenow)-parseInt($("#perpage").val());i<parseInt($pagenow);i++){
+			
+				$pageshow += "<a class=\"pagenum ajaxpage\">"+i+"</a>"; 
 			}
 		}
 	}

@@ -12,7 +12,7 @@ $nextFonts = ""; //"下一页"文字内容
 $page_n = 1; //样式2下是否加"前n页"、后n页，0为不加，1为加
 $skipStyle = 2; //跳转类型，可选1、2
 $pageStyle = 2; //样式类型，可选1、2、3( 样式3只包含"上一页"、"下一页"和页码 )
-$page_act = 0; //0:url 和 1:ajax
+$page_act = 1; //0:url 和 1:ajax
 
 if($page_act == 1){
 
