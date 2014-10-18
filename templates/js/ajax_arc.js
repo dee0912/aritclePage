@@ -1,5 +1,8 @@
 $(function(){
 
+	//初始显示"下一页","末页"
+	showFloPage();
+	
 	//删除原先的li,插入gif
 	function ajaxpre(){
 
@@ -31,12 +34,11 @@ $(function(){
 
 		}else{
 		
-				$("#pre_page").show();
-				$("#first_page").show();
-			
-				$("#flo_page").show();
-				$("#last_page").show();
-			
+			$("#pre_page").show();
+			$("#first_page").show();
+		
+			$("#flo_page").show();
+			$("#last_page").show();	
 		}
 	}
 
@@ -55,6 +57,24 @@ $(function(){
 		
 		if($("#pre_page").length == 0){
 			$pre_page.insertBefore($(".ajaxpage:first"));
+		}
+	}
+
+	//点击"上一页"、"首页"时出现"下一页"和"末页"
+	function showFloPage(){
+
+		//下一页 
+		$flo_page = $("<a id=\"flo_page\" class=\"pagenum\">"+$preFonts+"</a>");
+		
+		if($("#flo_page").length == 0){
+			$flo_page.insertAfter($(".ajaxpage:last"));
+		}
+		
+		//末页
+		$lastPage = $("<a id=\"last_page\" class=\"pagenum\">末页</a>");
+		
+		if($("#last_page").length == 0){
+			$lastPage.insertAfter($("#flo_page"));
 		}
 	}
 
@@ -111,6 +131,37 @@ $(function(){
 		}
 	}
 
+	function lastPageAct(){
+
+		if($("#last_page").is(":visible")){
+		
+			$("#last_page").live('click',function(){
+
+				//删除更新前的
+				ajaxpre();
+
+				//pageNow设为1
+				$("#pageNow").val($("#totalPage").val());
+				apagenow = parseInt($("#pageNow").val());
+
+				//修改页码信息
+				$("#pagenow_info").html("&nbsp;&nbsp;当前第"+apagenow+"页");
+
+				//后偏移分页
+				flopage($("#pageNow").val());
+				
+				//ajax请求数据
+				ajaxpost();
+				
+				//到达"首页"之后隐藏"首页"和"上一页"
+				infoAct();
+
+				//给页码加样式
+				selpage();
+			});
+		}
+	}
+
 	//ajax "上一页"
 	function prePageAct(){
 
@@ -146,7 +197,9 @@ $(function(){
 
 					//出现"首页"和"下一页"
 					showPage();
+					showFloPage();
 					firstPageAct();
+					lastPageAct();
 					prePageAct();
 				}
 
@@ -193,7 +246,9 @@ $(function(){
 
 				//出现"首页"和"下一页"
 				showPage();
+				showFloPage();
 				firstPageAct();
+				lastPageAct();
 				prePageAct();
 			}
 
@@ -235,7 +290,9 @@ $(function(){
 			if($("#first_page").length == 0){
 			
 				showPage();
+				showFloPage();
 				firstPageAct();
+				lastPageAct();
 				prePageAct();
 			}
 
@@ -293,7 +350,9 @@ $(function(){
 
 			//出现"首页"和"下一页"
 			showPage();
+			showFloPage();
 			firstPageAct();
+			lastPageAct();
 			prePageAct();
 		}
 
